@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>Rick Roll</title>
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+<h1 id="title">Rick Roll</h1>
+
+<video src="https://www.cs.tufts.edu/comp/20/rickroll.mp4" id="rickroll" controls></video>
+<div id="lyrics"></div>
+
+<script>
+
+	var video = document.getElementById("rickroll");
+	var lyr = document.getElementById("lyrics").innerHTML;
+	video.addEventListener("timeupdate", dispLyrics);
+	
+	function dispLyrics() {
+		if (video.currentTime > 18 && video.currentTime < 22) {
+			document.getElementById("lyrics").innerHTML = "We're no strangers to love";
+		} else if (video.currentTime > 22 && video.currentTime < 26) {
+			document.getElementById("lyrics").innerHTML = "You know the rules and so do I";
+		} else if (video.currentTime > 26 && video.currentTime < 31) {
+			document.getElementById("lyrics").innerHTML = "A full commitment's what I'm thinking of";
+		} else if (video.currentTime > 31 && video.currentTime < 35) {
+			document.getElementById("lyrics").innerHTML = "You wouldn't get this from any other guy";
+		}
+
+		else if (video.currentTime > 35 && video.currentTime < 39) {
+			document.getElementById("lyrics").innerHTML = "I just wanna tell you how I'm feeling";
+		} else if (video.currentTime > 39 && video.currentTime < 43) {
+			document.getElementById("lyrics").innerHTML = "Gotta make you understand";
+		} 
+
+		else if (video.currentTime > 43 && video.currentTime < 45) {
+			document.getElementById("lyrics").innerHTML = "Never gonna give you up";
+		} else if (video.currentTime > 45 && video.currentTime < 47) {
+			document.getElementById("lyrics").innerHTML = "Never gonna let you down";
+		} else if (video.currentTime > 47 && video.currentTime < 51) {
+			document.getElementById("lyrics").innerHTML = "Never gonna run around and desert you";
+		} else if (video.currentTime > 51 && video.currentTime < 53) {
+			document.getElementById("lyrics").innerHTML = "Never gonna make you cry";
+		} else if (video.currentTime > 53 && video.currentTime < 56) {
+			document.getElementById("lyrics").innerHTML = "Never gonna say goodbye";
+		} else if (video.currentTime > 56 && video.currentTime < 60) {
+			document.getElementById("lyrics").innerHTML = "Never gonna tell a lie and hurt you";
+		} 
+
+		else if (video.currentTime > 60 && video.currentTime < 64) {
+			document.getElementById("lyrics").innerHTML = "We've known each other for so long";
+		} else if (video.currentTime > 64 && video.currentTime < 66) {
+			document.getElementById("lyrics").innerHTML = "Your heart's been aching, but";
+		} else if (video.currentTime > 66 && video.currentTime < 69) {
+			document.getElementById("lyrics").innerHTML = "You're too shy to say it";
+		} else if (video.currentTime > 69 && video.currentTime < 73) {
+			document.getElementById("lyrics").innerHTML = "Inside, we both know what's been going on";
+		} else if (video.currentTime > 73 && video.currentTime < 77) {
+			document.getElementById("lyrics").innerHTML = "We know the game and we're gonna play it";
+		} 
+
+		else if (video.currentTime > 77 && video.currentTime < 81) {
+			document.getElementById("lyrics").innerHTML = "And if you ask me how I'm feeling";
+		} else if (video.currentTime > 81 && video.currentTime < 85) {
+			document.getElementById("lyrics").innerHTML = "Don't tell me you're too blind to see";
+		} 
+
+		else if (video.currentTime > 85 && video.currentTime < 87) {
+			document.getElementById("lyrics").innerHTML = "Never gonna give you up";
+		} else if (video.currentTime > 87 && video.currentTime < 89) {
+			document.getElementById("lyrics").innerHTML = "Never gonna let you down";
+		} else if (video.currentTime > 89 && video.currentTime < 93) {
+			document.getElementById("lyrics").innerHTML = "Never gonna run around and desert you";
+		} else if (video.currentTime > 93 && video.currentTime < 96) {
+			document.getElementById("lyrics").innerHTML = "Never gonna make you cry";
+		} else if (video.currentTime > 96 && video.currentTime < 98) {
+			document.getElementById("lyrics").innerHTML = "Never gonna say goodbye";
+		} else if (video.currentTime > 98 && video.currentTime < 102) {
+			document.getElementById("lyrics").innerHTML = "Never gonna tell a lie and hurt you";
+		}
+
+
+		else if (video.currentTime > 102 && video.currentTime < 104) {
+			document.getElementById("lyrics").innerHTML = "Never gonna give you up";
+		} else if (video.currentTime > 104 && video.currentTime < 106) {
+			document.getElementById("lyrics").innerHTML = "Never gonna let you down";
+		} else if (video.currentTime > 106 && video.currentTime < 110) {
+			document.getElementById("lyrics").innerHTML = "Never gonna run around and desert you";
+		} else if (video.currentTime > 110 && video.currentTime < 112) {
+			document.getElementById("lyrics").innerHTML = "Never gonna make you cry";
+		} else if (video.currentTime > 112 && video.currentTime < 114) {
+			document.getElementById("lyrics").innerHTML = "Never gonna say goodbye";
+		} else if (video.currentTime > 114 && video.currentTime < 118) {
+			document.getElementById("lyrics").innerHTML = "Never gonna tell a lie and hurt you";
+		}
+
+
+		else if (video.currentTime > 120 && video.currentTime < 127) {
+			document.getElementById("lyrics").innerHTML = "(Ooh, give you up)";
+		} else if (video.currentTime > 128 && video.currentTime < 130) {
+			document.getElementById("lyrics").innerHTML = "Never gonna give, never gonna give";
+		} else if (video.currentTime > 130 && video.currentTime < 132) {
+			document.getElementById("lyrics").innerHTML = "(Give you up)";
+		} else if (video.currentTime > 132 && video.currentTime < 134) {
+			document.getElementById("lyrics").innerHTML = "Never gonna give, never gonna give";
+		} else if (video.currentTime > 134 && video.currentTime < 137) {
+			document.getElementById("lyrics").innerHTML = "(Give you up)";
+		} 
+
+
+		else if (video.currentTime > 137 && video.currentTime < 141) {
+			document.getElementById("lyrics").innerHTML = "We've known each other for so long";
+		} else if (video.currentTime > 141 && video.currentTime < 143) {
+			document.getElementById("lyrics").innerHTML = "Your heart's been aching, but";
+		} else if (video.currentTime > 143 && video.currentTime < 145) {
+			document.getElementById("lyrics").innerHTML = "You're too shy to say it";
+		} else if (video.currentTime > 145 && video.currentTime < 149) {
+			document.getElementById("lyrics").innerHTML = "Inside, we both know what's been going on";
+		} else if (video.currentTime > 149 && video.currentTime < 153) {
+			document.getElementById("lyrics").innerHTML = "We know the game and we're gonna play it";
+		} 
+
+		else if (video.currentTime > 153 && video.currentTime < 158) {
+			document.getElementById("lyrics").innerHTML = "I just wanna tell you how I'm feeling";
+		} else if (video.currentTime > 158 && video.currentTime < 160) {
+			document.getElementById("lyrics").innerHTML = "Gotta make you understand";
+		} 
+
+
+		else if (video.currentTime > 161 && video.currentTime < 163) {
+			document.getElementById("lyrics").innerHTML = "Never gonna give you up";
+		} else if (video.currentTime > 163 && video.currentTime < 165) {
+			document.getElementById("lyrics").innerHTML = "Never gonna let you down";
+		} else if (video.currentTime > 165 && video.currentTime < 169) {
+			document.getElementById("lyrics").innerHTML = "Never gonna run around and desert you";
+		} else if (video.currentTime > 170 && video.currentTime < 172) {
+			document.getElementById("lyrics").innerHTML = "Never gonna make you cry";
+		} else if (video.currentTime > 172 && video.currentTime < 174) {
+			document.getElementById("lyrics").innerHTML = "Never gonna say goodbye";
+		} else if (video.currentTime > 174 && video.currentTime < 178) {
+			document.getElementById("lyrics").innerHTML = "Never gonna tell a lie and hurt you";
+		}
+
+		else if (video.currentTime > 178 && video.currentTime < 180) {
+			document.getElementById("lyrics").innerHTML = "Never gonna give you up";
+		} else if (video.currentTime > 180 && video.currentTime < 182) {
+			document.getElementById("lyrics").innerHTML = "Never gonna let you down";
+		} else if (video.currentTime > 182 && video.currentTime < 186) {
+			document.getElementById("lyrics").innerHTML = "Never gonna run around and desert you";
+		} else if (video.currentTime > 187 && video.currentTime < 189) {
+			document.getElementById("lyrics").innerHTML = "Never gonna make you cry";
+		} else if (video.currentTime > 189 && video.currentTime < 191) {
+			document.getElementById("lyrics").innerHTML = "Never gonna say goodbye";
+		} else if (video.currentTime > 191 && video.currentTime < 195) {
+			document.getElementById("lyrics").innerHTML = "Never gonna tell a lie and hurt you";
+		}
+
+		else if (video.currentTime > 195 && video.currentTime < 197) {
+			document.getElementById("lyrics").innerHTML = "Never gonna give you up";
+		} else if (video.currentTime > 197 && video.currentTime < 199) {
+			document.getElementById("lyrics").innerHTML = "Never gonna let you down";
+		} else if (video.currentTime > 199 && video.currentTime < 203) {
+			document.getElementById("lyrics").innerHTML = "Never gonna run around and desert you";
+		} else if (video.currentTime > 203 && video.currentTime < 205) {
+			document.getElementById("lyrics").innerHTML = "Never gonna make you cry";
+		} else if (video.currentTime > 205 && video.currentTime < 207) {
+			document.getElementById("lyrics").innerHTML = "Never gonna say goodbye";
+		} else if (video.currentTime > 207 && video.currentTime < 211) {
+			document.getElementById("lyrics").innerHTML = "Never gonna tell a lie and hurt you";
+		}
+		
+
+	}
+
+</script>
+</body>
+</html>	
