@@ -1,0 +1,19 @@
+
+/* NotUber style sheet */
+/*curl -d "username=1Mjovzzth6&lat=1&lng=1" https://jordan-marsh.herokuapp.com/rides!*/
+
+body {
+	font-family: "Calibri";
+	font-size: 22px;
+	color: black;
+	background-color: green;
+}
+
+h1 {
+	font-size: 40px;
+	text-align: center;
+}
+
+a {
+	text-decoration: none;
+}

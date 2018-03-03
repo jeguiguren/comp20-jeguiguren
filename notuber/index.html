@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+
+<html>
+
+	<head>
+		<title>Your Location</title>
+		<link href="style.css" rel="stylesheet" />
+		<meta charset="utf-8" />
+		<script>
+			var myLat = 0;
+			var myLng = 0;
+			var username = "1Mjovzzth6";
+			var info;
+
+			function uberApp() {
+				navigator.geolocation.getCurrentPosition(getLocation);				
+			}
+
+			function getLocation(position) {
+				myLat = position.coords.latitude;
+				myLng = position.coords.longitude;
+				outputElem = document.getElementById("info");
+				outputElem.innerHTML = "<h1>You are at " + myLat + ", " + myLng + "</h1>";
+				sendLocation();
+			}
+
+			function sendLocation(){
+				var xhr = new XMLHttpRequest();
+			
+				var params = "username=" + username + "&lat=" + myLat + "&lng=" + myLng; 
+				var url = "https://jordan-marsh.herokuapp.com/rides";
+
+				xhr.open("POST", url, true);
+
+				//Send the proper header information along with the request
+				xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+				xhr.onreadystatechange = function() {//Call a function when the state changes.
+    				if(xhr.readyState == 4 && xhr.status == 200) {
+
+    					outputDiv = document.getElementById("info");
+					
+						// Step 5: Work with the response data
+						info = xhr.responseText;				
+						// Step 5A: Parse the responseText to JavaScript objects
+						obj = JSON.parse(info);
+						outputString = "";
+						for (count in obj.vehicles) {
+							outputString += "<p>username: " + obj.vehicles[count].username + ", location:  " + obj.vehicles[count].lat + " " + obj.vehicles[count].lng + "</p>"
+						}
+						outputDiv.innerHTML = outputString;
+        				
+    				}
+				}
+				xhr.send(params);
+
+				xhr.get
+			}
+
+		</script>
+	</head>
+	
+	<body onload="uberApp()">
+		<div id="info">
+			<h1>Getting your location...</h1>
+		</div>
+	</body>
+</html>
+
+
