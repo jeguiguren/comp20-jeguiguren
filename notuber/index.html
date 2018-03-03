@@ -44,10 +44,19 @@
 						info = xhr.responseText;				
 						// Step 5A: Parse the responseText to JavaScript objects
 						obj = JSON.parse(info);
-						outputString = "";
-						for (count in obj.vehicles) {
-							outputString += "<p>username: " + obj.vehicles[count].username + ", location:  " + obj.vehicles[count].lat + " " + obj.vehicles[count].lng + "</p>"
+
+
+						targets = obj.vehicles;
+						if (targets == null){
+							targets = obj.passengers;
 						}
+						alert(targets);
+
+						outputString = "";
+						for (count in targets) {
+							outputString += "<p>username: " + targets[count].username + ", location:  " + targets[count].lat + " " + targets[count].lng + "</p>"
+						}
+
 						outputDiv.innerHTML = outputString;
         				
     				}
