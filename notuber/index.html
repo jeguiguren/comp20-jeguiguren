@@ -6,30 +6,30 @@
 		<title>Your Location</title>
 		<link href="style.css" rel="stylesheet" />
 		<meta charset="utf-8" />
+		<script src="https://maps.google.com/maps/api/js?sensor=true"></script>
+		
 		<script>
 			var myLat = 0;
 			var myLng = 0;
-			var username = "1Mjovzzth6";
-			var info;
-
-			function uberApp() {
-				navigator.geolocation.getCurrentPosition(getLocation);				
+			const username = "1Mjovzzth6";
+			function initUber() {
+				navigator.geolocation.getCurrentPosition(getLocation);	
 			}
 
 			function getLocation(position) {
+				outputDiv = document.getElementById("myinfo");	
 				myLat = position.coords.latitude;
 				myLng = position.coords.longitude;
 				outputElem = document.getElementById("info");
-				outputElem.innerHTML = "<h1>You are at " + myLat + ", " + myLng + "</h1>";
+				locString = "<h3>Location: " + myLat + ", " + myLng + "</h3>";
+				outputDiv.innerHTML = locString;
 				sendLocation();
 			}
-
-			function sendLocation(){
-				var xhr = new XMLHttpRequest();
 			
-				var params = "username=" + username + "&lat=" + myLat + "&lng=" + myLng; 
+			function sendLocation() {
+				var xhr = new XMLHttpRequest();
+				var params = "username=" + username + "&lat=" + myLat + "&lng=" + myLng;
 				var url = "https://jordan-marsh.herokuapp.com/rides";
-
 				xhr.open("POST", url, true);
 
 				//Send the proper header information along with the request
@@ -39,41 +39,36 @@
     				if(xhr.readyState == 4 && xhr.status == 200) {
 
     					outputDiv = document.getElementById("info");
-					
-						// Step 5: Work with the response data
+
 						info = xhr.responseText;				
-						// Step 5A: Parse the responseText to JavaScript objects
 						obj = JSON.parse(info);
-
-
 						targets = obj.vehicles;
-						if (targets == null){
+						if (targets == null) {
 							targets = obj.passengers;
 						}
-						alert(targets);
 
 						outputString = "";
 						for (count in targets) {
 							outputString += "<p>username: " + targets[count].username + ", location:  " + targets[count].lat + " " + targets[count].lng + "</p>"
 						}
-
 						outputDiv.innerHTML = outputString;
-        				
     				}
-				}
-				xhr.send(params);
-
-				xhr.get
+    			}
+			
+			xhr.send(params);
 			}
-
+		
 		</script>
+
 	</head>
 	
-	<body onload="uberApp()">
-		<div id="info">
-			<h1>Getting your location...</h1>
-		</div>
+	<body onload="initUber()">
+		<h1>NOT YOUR UBER</h1>
+		<div id="myinfo"></div>
+		<div id="info"></div>
+		<div id="map_canvas"></div>
 	</body>
+
 </html>
 
 
