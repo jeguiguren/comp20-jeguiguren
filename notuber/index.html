@@ -12,7 +12,21 @@
 			var myLat = 0;
 			var myLng = 0;
 			const username = "1Mjovzzth6";
+
+			var me = new google.maps.LatLng(myLat, myLng);
+			var myOptions = {
+				zoom: 13, // The larger the zoom number, the bigger the zoom
+				center: me,
+				mapTypeId: google.maps.MapTypeId.ROADMAP
+			};
+			var map;
+			var marker;
+			var infowindow = new google.maps.InfoWindow();
+			
+
+			
 			function initUber() {
+				map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
 				navigator.geolocation.getCurrentPosition(getLocation);	
 			}
 
@@ -32,6 +46,7 @@
 				var url = "https://jordan-marsh.herokuapp.com/rides";
 				xhr.open("POST", url, true);
 
+
 				//Send the proper header information along with the request
 				xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
@@ -45,6 +60,7 @@
 						targets = obj.vehicles;
 						if (targets == null) {
 							targets = obj.passengers;
+							alert("I am a vehicle");
 						}
 
 						outputString = "";
@@ -57,6 +73,11 @@
 			
 			xhr.send(params);
 			}
+
+			//function addToMap(thisLat, thisLng) {
+
+
+			
 		
 		</script>
 
@@ -67,6 +88,7 @@
 		<div id="myinfo"></div>
 		<div id="info"></div>
 		<div id="map_canvas"></div>
+		
 	</body>
 
 </html>
