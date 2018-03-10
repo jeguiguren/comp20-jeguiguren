@@ -1,34 +1,20 @@
-
 /* NotUber style sheet */
-/*curl -d "username=1Mjovzzth6&lat=1&lng=1" https://jordan-marsh.herokuapp.com/rides!*/
 
 body {
 	font-family: "Calibri";
 	font-size: 22px;
-	color: black;
-	background-color: #1E90FF;
-}
-
-h1 {
-	font-size: 40px;
+	background-color: lightgrey;
 	text-align: center;
 }
-
-a {
-	text-decoration: none;
-}
-
 html {
 	height: 100%;
-	font-family: Helvetica, "Helvetica Neue", Arial, sans-serif;
 }
-
 body {
 	height: 100%;
+	width: 100%;
 	margin: 0px;
 	padding: 0px;
 }
-
 #map_canvas {
 	width: 100%;
 	height: 100%;

@@ -6,14 +6,14 @@
 		<title>Your Location</title>
 		<link href="style.css" rel="stylesheet" />
 		<meta charset="utf-8" />
-		<script src="https://maps.google.com/maps/api/js?sensor=true"></script>
+		<script src="https://maps.google.com/maps/api/js?sensor=true&libraries=geometry"></script>
+
 		
 		<script>
 			var myLat = 0;
 			var myLng = 0;
-			const username = "1Mjovzzth6";
-
-			var me = new google.maps.LatLng(myLat, myLng);
+			const myUsername = "1Mjovzzth6";
+			var me;
 			var myOptions = {
 				zoom: 13, // The larger the zoom number, the bigger the zoom
 				center: me,
@@ -23,72 +23,88 @@
 			var marker;
 			var infowindow = new google.maps.InfoWindow();
 			
-
-			
 			function initUber() {
 				map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
 				navigator.geolocation.getCurrentPosition(getLocation);	
 			}
 
 			function getLocation(position) {
-				outputDiv = document.getElementById("myinfo");	
 				myLat = position.coords.latitude;
 				myLng = position.coords.longitude;
-				outputElem = document.getElementById("info");
-				locString = "<h3>Location: " + myLat + ", " + myLng + "</h3>";
-				outputDiv.innerHTML = locString;
+				me = new google.maps.LatLng(myLat, myLng);
 				sendLocation();
 			}
 			
 			function sendLocation() {
+
 				var xhr = new XMLHttpRequest();
-				var params = "username=" + username + "&lat=" + myLat + "&lng=" + myLng;
+				var params = "username=" + myUsername + "&lat=" + myLat + "&lng=" + myLng;
 				var url = "https://jordan-marsh.herokuapp.com/rides";
+				addToMap(myUsername, myLat, myLng);
 				xhr.open("POST", url, true);
-
-
-				//Send the proper header information along with the request
 				xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
-				xhr.onreadystatechange = function() {//Call a function when the state changes.
+				xhr.onreadystatechange = function() { //Call a function when the state changes.
     				if(xhr.readyState == 4 && xhr.status == 200) {
-
-    					outputDiv = document.getElementById("info");
 
 						info = xhr.responseText;				
 						obj = JSON.parse(info);
 						targets = obj.vehicles;
+						
 						if (targets == null) {
 							targets = obj.passengers;
-							alert("I am a vehicle");
 						}
 
 						outputString = "";
 						for (count in targets) {
-							outputString += "<p>username: " + targets[count].username + ", location:  " + targets[count].lat + " " + targets[count].lng + "</p>"
+							user = targets[count].username;
+							lat = targets[count].lat;
+							lng = targets[count].lng;
+							addToMap(user, lat, lng)
 						}
-						outputDiv.innerHTML = outputString;
+						map.panTo(me);
     				}
     			}
-			
 			xhr.send(params);
 			}
 
-			//function addToMap(thisLat, thisLng) {
+			function addToMap(username, lat, lng) {
+				
+				target = new google.maps.LatLng(lat, lng);
 
+				if (me != undefined  && target != undefined) {
+					distance = (google.maps.geometry.spherical.computeDistanceBetween(me, target)) / 1600; //meters-to-miles
+					distance = distance.toFixed(3);
+				}
 
-			
+				if (username == myUsername) {
+					info = "ME";
+				} else {
+					info = "User: " + username + "\nDistance " + distance;
+				}				
+				
+				// Create Marker
+				marker = new google.maps.Marker({
+					position: target,
+					title: username,
+					//icon: image,
+					content: info
+				});
+				marker.setMap(map);
 		
-		</script>
+				// Open info window on click of marker
+				google.maps.event.addListener(marker, 'click', function() {
+					infowindow.setContent(this.content);
+					infowindow.open(map, this);
+				});
+			}
 
+		</script>
 	</head>
 	
 	<body onload="initUber()">
-		<h1>NOT YOUR UBER</h1>
-		<div id="myinfo"></div>
-		<div id="info"></div>
+		<h1>NOT UBER</h1>
 		<div id="map_canvas"></div>
-		
 	</body>
 
 </html>
