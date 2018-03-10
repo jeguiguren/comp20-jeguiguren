@@ -9,31 +9,41 @@
 		<script src="https://maps.google.com/maps/api/js?sensor=true&libraries=geometry"></script>
 
 		<script>
+			var me;
 			var myLat = 0;
 			var myLng = 0;
 			const myUsername = "1Mjovzzth6";
-			var me;
+			var minDistance = 100;
+
+			var map;
+			var marker;
+			var infowindow = new google.maps.InfoWindow();
 			var myOptions = {
 				zoom: 13, // The larger the zoom number, the bigger the zoom
 				center: me,
 				mapTypeId: google.maps.MapTypeId.ROADMAP
 			};
-			var map;
-			var marker;
-			var infowindow = new google.maps.InfoWindow();
+
+			var myImg = {
+    				url: "https://d30y9cdsu7xlg0.cloudfront.net/png/3996-200.png",
+			    	scaledSize: new google.maps.Size(28, 28),
+			    	origin: new google.maps.Point(0, 0),
+			    	anchor: new google.maps.Point(0, 0)
+				};
 			var carImg = {
-    			url: "https://tuftsdev.github.io/WebProgramming/assignments/car.png",
-			    scaledSize: new google.maps.Size(20, 40),
-			    origin: new google.maps.Point(0, 0),
-			    anchor: new google.maps.Point(0, 0)
-			  };
+    				url: "https://tuftsdev.github.io/WebProgramming/assignments/car.png",
+			    	scaledSize: new google.maps.Size(20, 40),
+			    	origin: new google.maps.Point(0, 0),
+			    	anchor: new google.maps.Point(0, 0)
+				};
     		var passImg = { 
-    			url: "https://furtaev.ru/preview/user_3_small.png",
-    			scaledSize: new google.maps.Size(40, 40),
-			    origin: new google.maps.Point(0, 0),
-			    anchor: new google.maps.Point(0, 0) 
-			};
+    				url: "https://furtaev.ru/preview/user_3_small.png",
+    				scaledSize: new google.maps.Size(40, 40),
+			    	origin: new google.maps.Point(0, 0),
+			    	anchor: new google.maps.Point(0, 0) 
+				};
 			
+
 			function initUber() {
 				map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
 				navigator.geolocation.getCurrentPosition(getLocation);	
@@ -66,15 +76,14 @@
 							targets = obj.passengers;
 							isPass = true;
 						}
-						addToMap(myUsername, myLat, myLng, (!isPass));
-
-						outputString = "";
+						
 						for (count in targets) {
 							user = targets[count].username;
 							lat = targets[count].lat;
 							lng = targets[count].lng;
 							addToMap(user, lat, lng, isPass)
 						}
+						addToMap(myUsername, myLat, myLng, (!isPass));
 						map.panTo(me);
     				}
     			}
@@ -84,19 +93,22 @@
 			function addToMap(username, lat, lng, isPass) {
 				
 				target = new google.maps.LatLng(lat, lng);
-				if (me != undefined  && target != undefined) {
-					distance = (google.maps.geometry.spherical.computeDistanceBetween(me, target)) / 1600; //meters-to-miles
-					distance = distance.toFixed(3);
-				}
-
-				info = "User: " + username + "\nDistance " + distance;
-				if (username == myUsername) {
-					info = "ME";
-				}
-
+				distance = (google.maps.geometry.spherical.computeDistanceBetween(me, target)) / 1600; //meters-to-miles
+				distance = distance.toFixed(3);
+				
 				image = carImg;
 				if (isPass) {
 					image = passImg;
+				}
+
+				if (0 < distance && distance < minDistance) { //Compare all but my distance
+					minDistance = distance;
+				}
+
+				info = "Username: " + username + " | Distance " + distance;
+				if (username == myUsername) {
+					info = "Username: " + username + " | Min Distance " + minDistance;
+					image = myImg;
 				}
 
 				// Create Marker
@@ -114,7 +126,6 @@
 					infowindow.open(map, this);
 				});
 			}
-
 		</script>
 	</head>
 	
