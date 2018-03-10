@@ -95,14 +95,13 @@
 				target = new google.maps.LatLng(lat, lng);
 				distance = (google.maps.geometry.spherical.computeDistanceBetween(me, target)) / 1600; //meters-to-miles
 				distance = distance.toFixed(3);
+				if (0 < distance && distance < minDistance) { //Compare all but my distance
+					minDistance = distance;
+				}
 				
 				image = carImg;
 				if (isPass) {
 					image = passImg;
-				}
-
-				if (0 < distance && distance < minDistance) { //Compare all but my distance
-					minDistance = distance;
 				}
 
 				info = "Username: " + username + " | Distance " + distance;
