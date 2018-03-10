@@ -35,14 +35,14 @@
 			    	scaledSize: new google.maps.Size(20, 40),
 			    	origin: new google.maps.Point(0, 0),
 			    	anchor: new google.maps.Point(0, 0)
-				};
-    		var passImg = { 
+			    };
+			var passImg = { 
     				url: "https://furtaev.ru/preview/user_3_small.png",
     				scaledSize: new google.maps.Size(40, 40),
 			    	origin: new google.maps.Point(0, 0),
 			    	anchor: new google.maps.Point(0, 0) 
-				};
-			
+			    };
+
 
 			function initUber() {
 				map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
@@ -91,8 +91,9 @@
 			}
 
 			function addToMap(username, lat, lng, isPass) {
-				
+
 				target = new google.maps.LatLng(lat, lng);
+				
 				distance = (google.maps.geometry.spherical.computeDistanceBetween(me, target)) / 1600; //meters-to-miles
 				distance = distance.toFixed(3);
 				if (0 < distance && distance < minDistance) { //Compare all but my distance
