@@ -22,16 +22,16 @@
 			var marker;
 			var infowindow = new google.maps.InfoWindow();
 			var carImg = {
-    			url: "https://tuftsdev.github.io/WebProgramming/assignments/car.png",
-			    scaledSize: new google.maps.Size(20, 40),
-			    origin: new google.maps.Point(0, 0),
-			    anchor: new google.maps.Point(0, 0)
+    				url: "https://tuftsdev.github.io/WebProgramming/assignments/car.png",
+			    	scaledSize: new google.maps.Size(20, 40),
+			    	origin: new google.maps.Point(0, 0),
+			    	anchor: new google.maps.Point(0, 0)
 			  };
-    		var passImg = { 
-    			url: "https://furtaev.ru/preview/user_3_small.png",
-    			scaledSize: new google.maps.Size(40, 40),
-			    origin: new google.maps.Point(0, 0),
-			    anchor: new google.maps.Point(0, 0) 
+    			var passImg = { 
+    				url: "https://furtaev.ru/preview/user_3_small.png",
+    				scaledSize: new google.maps.Size(40, 40),
+			    	origin: new google.maps.Point(0, 0),
+			    	anchor: new google.maps.Point(0, 0) 
 			};
 			
 			function initUber() {
@@ -84,11 +84,9 @@
 			function addToMap(username, lat, lng, isPass) {
 				
 				target = new google.maps.LatLng(lat, lng);
-				if (me != undefined  && target != undefined) {
-					distance = (google.maps.geometry.spherical.computeDistanceBetween(me, target)) / 1600; //meters-to-miles
-					distance = distance.toFixed(3);
-				}
-
+				distance = (google.maps.geometry.spherical.computeDistanceBetween(me, target)) / 1600; //meters-to-miles
+				distance = distance.toFixed(3);
+				
 				info = "User: " + username + "\nDistance " + distance;
 				if (username == myUsername) {
 					info = "ME";
