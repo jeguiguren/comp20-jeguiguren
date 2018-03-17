@@ -9,15 +9,46 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script>
 
+        var logs = [];
+        var KEY = "Messages";
+
+        $(window).on("load", printLog);
+        
         $(document).ready(function(){
             $('#msg').keypress(function(key) {
                 if(key.which == 13) {
-                    var date = new Date();
-                    var message = $('#msg').val();
-                    alert(date + ' - ' + message);
+                    saveAndPrint();
                 }
             });
         });
+
+        $(window).bind("beforeunload", storeLog);
+
+        function saveAndPrint() {
+            var date = new Date();
+            var message = $('#msg').val();
+            var new_log = date + ' - ' + message; 
+            if (message != "") {
+                logs.push(new_log); 
+                $('#log').after("<p>" + new_log + "<p>");
+            }
+        }
+
+        function storeLog() {
+            if (logs != null) {
+                localStorage.setItem(KEY, JSON.stringify(logs));
+            }
+        }
+
+        function printLog() {
+            if (localStorage.length > 0) {
+                logs = JSON.parse(localStorage.getItem(KEY));
+                for (var i = 0; i < logs.length; i++) {
+                    $('#log').after("<p>" + logs[i] + "<p>");
+                }
+            }   
+        }
+
     </script>
 </head>
 
