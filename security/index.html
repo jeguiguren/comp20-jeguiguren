@@ -19,39 +19,50 @@
 		<p>In order to perform the mentioned task, I downloaded the POSTMAN App, which provides a user friendly interface to execute HTTP request methods on a given website. Then, I tried a couple of "Black-box" testing, trying to hack my colleague's site without actually looking at the source code. I finally downloaded the documents and took advantage of the notable glitches in the code.</p>
 
 		<h2>Abstract of Findings</h2>
-		<p>Overall, the web app fails to verify user input and hide confidential informaiton. 
-		Provide an overview of all the security and privacy issues you identified. This section should be written for non-technical managers who do not have technical expertise and do not have time to read the entire document. Write this section using lay language.</p>
+		<p>Overall, the web app fails to verify user input and hide confidential information. The former is evidenced, for example, when posting information of a new user and when retrieving a vehicle's information. Someone can easily post malicious script that will later get executed on the client-side, or can use database look-up glitches to look-up a vehicle without knowing its username. Finally, regarding the display of confidential information, if one manages to get access to the server sourcecode, the usernames of all the vehicles in the ride-sharing platform are visible.</p>
 
 		<h2>Issues Found</h2>
 
 		<h3>1. Cross-Site Scripting (XSS)</h3>
 
-		<ul>Location: index.js (server side )line 62</ul>
-		<ul>Severity: </ul>
-		<ul>Description: </ul><img id='im1' src='./xss.png'>
-		<ul>Proof:</ul><img id='im2' src='./xss_result.png'>
-		<ul>Resolution: </ul>
+		<ul>Location: index.js (server side), line 62</ul>
+		<ul>Severity: Medium, for one can divert a client to malicious sites or display alarming messages/alerts that are not true</ul>
+		<ul>Description: When sending a POST request to /rides to insert a new document to the database, there is no input verification. Hence, one can send a malicious script as a username, which will be added to the database, and the script will be executed when passenger information is displayed on the client-side when requesting the GET / command. Such script can re-direct the client to different sites, display unwanted alerts, or, as in this case, write other company's logos to the site.</ul>
+		<ul><img id='im1' src='./xss.png'></ul>
+		<ul>Proof:</ul>
+		<ul><img id='im2' src='./xss_result.png'></ul>
+		<ul>Resolution: Verifying user input and replacing any special characters to prevent JS inputs (i.e. foo.replace(/[^\w\s]/gi, '');)</ul>
+
 
 
 		<h3>2. Data Base Injection</h3>
 
-		<ul>Location: index.js (server side )line 62</ul>
-		<ul>Severity: </ul>
-		<ul>Description: </ul><img id='im3' src='./nosql.png'>
-		<ul>Proof: </ul><img id='im4' src='./nosql_result.png' >
-		<ul>Resolution: </ul>
+		<ul>Location: index.js (server side), line 96</ul>
+		<ul>Severity: High, for accessing an "always true" username will return the first user in the database, which could be the admin.</ul>
+		<ul>Description: When retirieving information from a specific vehicle through the GET /vehicle.json, one can use database look-up glitches to search up a vehicle without knowing its specific username. In this case, for example, I looked for a vehicle whose username was greater than "", meaning that it would always be true. Hence, the db.find command would return the first element in the db, which could be the data base admin. </ul>
+		<ul><img id='im3' src='./nosql.png'></ul>
+		<ul>Proof: </ul>
+		<ul><img id='im4' src='./nosql_result.png'></ul>
+		<ul>Resolution: Sanitize the input, either by removing special characters or using the 'mongo-sanitize' package 
+		(i.e. var sanitize = require('mongo-sanitize');)</ul>
 
-		<h3>3. Usernames Displayed on Document</h3>
 
-		<ul>Location: index.js (server side )line 62</ul>
-		<ul>Severity: </ul>
-		<ul>Description: </ul>
-		<ul>Proof: </ul><img id='im5' src='./vehicles.png'>
-		<ul>Resolution: Store them in a URL</ul>
+
+		<h3>3. Usernames Displayed on Document (Bad Programming Practice)</h3>
+
+		<ul>Location: index.js (server side), line 22</ul>
+		<ul>Severity: High; In this platform, having a vehicle's username is enough to obtain its location. Hence, displaying such confidential information blatantly on the sourcecode allows for personal security breaches.</ul>
+		<ul>Description: With access to the server-side source code, one can easily find the user names of al the vehicles registered in the platform. With the username, one can then simply request the location of such vehicle, invading the driver's privacy and compromising their security. In this case, for example, I noticed there is a driver called JANET, and I was able to retrieve its location.</ul>
+		<ul><img id='im5' src='./vehicles.png'></ul>
+		<ul>Proof: </ul>
+		<ul><img id='im6' src='./vehicles_result.png'></ul>
+		<ul>Resolution: A good programmer would store all vehicle usernames within a database, and simply execute a find command to verify if a given username matches a vehicle.</ul>
+
 
 	  
 		<h2>Conclusion</h2>
-		<p>You can also list future considerations and recommendations with costs.</p>
+		<p>To safeguard your website from unethical hackers, one can use platforms such as the Burp Suite, which scan and detect a website's security glitches; they usually cover over 100 generic vulnerabilities, and have very good performance against the OWASP top 10 vulnerabilities. A few platforms include a free-trial period before charging for the subscription. </p>
+
 
 		<h2>References</h2>
 		<ul><a href="https://www.veracode.com/security/xss">Veracode</a></ul>
